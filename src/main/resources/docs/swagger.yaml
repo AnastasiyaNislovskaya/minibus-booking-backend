@@ -1,0 +1,277 @@
+openapi: 3.0.0
+info:
+  title: booking_service
+  version: "1"
+paths:
+  /auth/signin:
+    post:
+      operationId: authAuthenticateUser
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDto'
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        "400":
+          description: Service will return this if parameters are not provided or couldn't be parsed correctly
+        "500":
+          description: Service will return this if unexpected internal error happens
+  /auth/signup:
+    post:
+      operationId: authRegisterUser
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDto'
+      responses:
+        "201":
+          description: ""
+        "400":
+          description: Service will return this if parameters are not provided or couldn't be parsed correctly
+        "500":
+          description: Service will return this if unexpected internal error happens
+  /schedule/get_all_trips:
+    get:
+      operationId: scheduleGetAllTrips
+      tags:
+        - schedule
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TripScheduleDto'
+        "500":
+          description: Service will return this if unexpected internal error happens
+  /booking/book_ticket:
+    post:
+      operationId: bookingBookTicket
+      tags:
+        - booking
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: trip_schedule_id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Service will return this if parameters are not provided or couldn't be parsed correctly
+        "500":
+          description: Service will return this if unexpected internal error happens
+  /admin/get_all_users:
+    get:
+      operationId: adminGetAllUsers
+      tags:
+        - admin
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+        "500":
+          description: Service will return this if unexpected internal error happens
+  /admin/delete_user/{user_id}:
+    delete:
+      operationId: adminDeleteUser
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: ""
+        "400":
+          description: Service will return this if parameters are not provided or couldn't be parsed correctly
+        "500":
+          description: Service will return this if unexpected internal error happens
+  /admin/create_user:
+    post:
+      operationId: adminCreateUser
+      tags:
+        - admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterDto'
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+        "400":
+          description: Service will return this if parameters are not provided or couldn't be parsed correctly
+        "500":
+          description: Service will return this if unexpected internal error happens
+components:
+  schemas:
+    LoginDto:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    RegisterDto:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - username
+        - email
+        - password
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    UserDto:
+      type: object
+      required:
+        - id
+        - first_name
+        - last_name
+        - username
+        - email
+        - password
+        - roles
+      properties:
+        id:
+          type: integer
+          format: int64
+        first_name:
+          type: string
+        last_name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoleDto'
+    RoleDto:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    LocalityDto:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    TripDto:
+      type: object
+      required:
+        - id
+        - departure
+        - arrival
+        - trip_date
+      properties:
+        id:
+          type: integer
+          format: int64
+        departure:
+          type: string
+        arrival:
+          type: string
+        trip_date:
+          type: string
+          format: date
+    TripScheduleDto:
+      type: object
+      required:
+        - id
+        - departure_time
+        - arrival_time
+        - fare
+        - available_sets
+        - trip_detail
+      properties:
+        id:
+          type: integer
+          format: int64
+        departure_time:
+          type: string
+        arrival_time:
+          type: string
+        fare:
+          type: integer
+          format: int32
+        available_sets:
+          type: integer
+          format: int32
+        trip_detail:
+          $ref: '#/components/schemas/TripDto'
+    TicketDto:
+      type: object
+      required:
+        - passenger
+        - trip_schedule
+      properties:
+        passenger:
+          $ref: '#/components/schemas/UserDto'
+        trip_schedule:
+          $ref: '#/components/schemas/TripScheduleDto'

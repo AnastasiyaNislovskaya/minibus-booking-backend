@@ -1,0 +1,91 @@
+spec: 2.1
+name: booking_service
+version: 1
+
+models:
+  LoginDto:
+    object:
+      username: string
+      password: string
+  RegisterDto:
+    object:
+      first_name: string
+      last_name: string
+      username: string
+      email: string
+      password: string
+  UserDto:
+    object:
+      id: long
+      first_name: string
+      last_name: string
+      username: string
+      email: string
+      password: string
+      roles: RoleDto[]
+  RoleDto:
+    object:
+      id: long
+      name: string
+  LocalityDto:
+    object:
+      id: long
+      name: string
+  TripDto:
+    object:
+      id: long
+      departure: string
+      arrival: string
+      trip_date: date
+  TripScheduleDto:
+    object:
+      id: long
+      departure_time: string
+      arrival_time: string
+      fare: int
+      available_sets: int
+      trip_detail: TripDto
+  TicketDto:
+    object:
+      passenger: UserDto
+      trip_schedule: TripScheduleDto
+
+http:
+  auth:
+    authenticate_user:
+      endpoint: POST /auth/signin
+      body: LoginDto
+      response:
+        ok: UserDto
+    register_user:
+      endpoint: POST /auth/signup
+      body: RegisterDto
+      response:
+        created: empty
+  schedule:
+    get_all_trips:
+      endpoint: GET /schedule/get_all_trips
+      response:
+        ok: TripScheduleDto[]
+  booking:
+    book_ticket:
+      endpoint: POST /booking/book_ticket
+      query:
+        user_id: long
+        trip_schedule_id: long
+      response:
+        ok: empty
+  admin:
+    get_all_users:
+      endpoint: GET /admin/get_all_users
+      response:
+        ok: UserDto[]
+    delete_user:
+      endpoint: DELETE /admin/delete_user/{user_id:long}
+      response:
+        ok: empty
+    create_user:
+      endpoint: POST /admin/create_user
+      body: RegisterDto
+      response:
+        ok: UserDto
