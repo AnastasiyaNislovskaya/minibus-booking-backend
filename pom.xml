@@ -113,7 +113,7 @@
                 </executions>
                 <configuration>
                     <specFile>${project.basedir}/spec.yaml</specFile>
-                    <packageName>io.specgen.minibus_booking_backend</packageName>
+                    <packageName>io.specgen.minibus_booking</packageName>
                     <swaggerPath>src/main/resources/static/docs/swagger.yaml</swaggerPath>
                     <servicesPath>src/main/java</servicesPath>
                 </configuration>
