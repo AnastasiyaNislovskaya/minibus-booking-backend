@@ -1,21 +1,23 @@
 package io.specgen.minibus_booking_backend.services;
 
-import io.specgen.minibus_booking_backend.converters.RoleConverters;
-import io.specgen.minibus_booking_backend.entities.*;
+import io.specgen.minibus_booking_backend.entities.Role;
+import io.specgen.minibus_booking_backend.entities.User;
 import io.specgen.minibus_booking_backend.models.*;
 import io.specgen.minibus_booking_backend.repositories.*;
-import io.specgen.minibus_booking_backend.services.auth.*;
+import io.specgen.minibus_booking_backend.security.JwtUtils;
+import io.specgen.minibus_booking_backend.security.UserDetailsImpl;
+import io.specgen.minibus_booking_backend.services.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service("AuthService")
@@ -30,37 +32,37 @@ public class AuthServiceImpl implements AuthService {
 	private RoleRepository roleRepository;
 
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private PasswordEncoder encoder;
 
 	@Autowired
-	private RoleConverters roleConverters;
+	JwtUtils jwtUtils;
 
 	@Override
-	public UserDto authenticateUser(LoginDto loginDto) {
+	public AuthDto authenticateUser(LoginDto loginDto) {
 		Authentication authentication = authenticationManager.authenticate(
 			new UsernamePasswordAuthenticationToken(
 				loginDto.getUsername(),
 				loginDto.getPassword())
 		);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtUtils.generateJwtToken(authentication);
 
-		User userDetails = userRepository.findByUsernameOrEmail(loginDto.getUsername(), loginDto.getUsername()).orElseThrow(null);
-
-		UserDto userDto = new UserDto();
-		userDto.setId(userDetails.getId());
-		userDto.setFirstName(userDetails.getFirstName());
-		userDto.setLastName(userDetails.getLastName());
-		userDto.setUsername(userDetails.getUsername());
-		userDto.setEmail(userDetails.getEmail());
-
-		List<RoleDto> roles = userDetails.getRoles()
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+		List<String> roles = userDetails.getAuthorities()
 			.stream()
-			.map(roleConverters::roleToRoleDto)
+			.map(GrantedAuthority::getAuthority)
 			.collect(Collectors.toList());
 
-		userDto.setRoles(roles);
-
-		return userDto;
+		return new AuthDto(
+			jwt,
+			"Bearer",
+			userDetails.getId(),
+			userDetails.getFirstName(),
+			userDetails.getLastName(),
+			userDetails.getUsername(),
+			userDetails.getEmail(),
+			roles
+		);
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
 			body.getLastName(),
 			body.getUsername(),
 			body.getEmail(),
-			passwordEncoder.encode(body.getPassword()),
+			encoder.encode(body.getPassword()),
 			Set.of(Objects.requireNonNull(role))
 		);
 

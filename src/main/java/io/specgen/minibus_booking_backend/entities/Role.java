@@ -2,13 +2,14 @@ package io.specgen.minibus_booking_backend.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Optional;
 
 @Entity
 @Table(name = "role")
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(length = 60)
 	@NotBlank
@@ -21,11 +22,11 @@ public class Role {
 		this.name = name;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

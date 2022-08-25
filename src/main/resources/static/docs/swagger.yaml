@@ -20,7 +20,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: '#/components/schemas/AuthDto'
         "400":
           description: Service will return this if parameters are not provided or couldn't be parsed correctly
           content:
@@ -274,6 +274,37 @@ components:
           type: string
         password:
           type: string
+    AuthDto:
+      type: object
+      required:
+        - token
+        - type
+        - id
+        - first_name
+        - last_name
+        - username
+        - email
+        - roles
+      properties:
+        token:
+          type: string
+        type:
+          type: string
+        id:
+          type: integer
+          format: int64
+        first_name:
+          type: string
+        last_name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
     UserDto:
       type: object
       required:
@@ -313,6 +344,11 @@ components:
           format: int64
         name:
           type: string
+    RoleName:
+      type: string
+      enum:
+        - role_user
+        - role_admin
     LocalityDto:
       type: object
       required:

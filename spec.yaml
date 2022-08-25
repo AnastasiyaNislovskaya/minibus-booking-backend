@@ -14,6 +14,16 @@ models:
       username: string
       email: string
       password: string
+  AuthDto:
+    object:
+      token: string
+      type: string
+      id: long
+      first_name: string
+      last_name: string
+      username: string
+      email: string
+      roles: string[]
   UserDto:
     object:
       id: long
@@ -27,6 +37,10 @@ models:
     object:
       id: long
       name: string
+  RoleName:
+    enum:
+      role_user: User
+      role_admin: Admin
   LocalityDto:
     object:
       id: long
@@ -56,7 +70,7 @@ http:
       endpoint: POST /auth/signin
       body: LoginDto
       response:
-        ok: UserDto
+        ok: AuthDto
     register_user:
       endpoint: POST /auth/signup
       body: RegisterDto
