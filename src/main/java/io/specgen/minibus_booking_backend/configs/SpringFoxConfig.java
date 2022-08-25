@@ -1,4 +1,4 @@
-package io.specgen.minibus_booking_backend;
+package io.specgen.minibus_booking_backend.configs;
 
 import org.springframework.context.annotation.*;
 import springfox.documentation.builders.*;

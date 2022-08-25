@@ -14,8 +14,7 @@ public class BookingControllerTest extends AbstractControllerTest {
 	void bookTicket() throws Exception {
 		perform(MockMvcRequestBuilders.post("/booking/book_ticket")
 			.param("user_id", String.valueOf(12))
-			.param("trip_schedule_id", String.valueOf(1))
-		)
+			.param("trip_schedule_id", String.valueOf(1)))
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
