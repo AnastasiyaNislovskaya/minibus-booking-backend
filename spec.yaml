@@ -94,6 +94,10 @@ http:
       endpoint: GET /admin/get_all_users
       response:
         ok: UserDto[]
+    get_by_id:
+      endpoint: GET /admin/get_by_id/{user_id:long}
+      response:
+        ok: UserDto
     delete_user:
       endpoint: DELETE /admin/delete_user/{user_id:long}
       response:
@@ -102,4 +106,4 @@ http:
       endpoint: POST /admin/create_user
       body: RegisterDto
       response:
-        ok: UserDto
+        created: empty

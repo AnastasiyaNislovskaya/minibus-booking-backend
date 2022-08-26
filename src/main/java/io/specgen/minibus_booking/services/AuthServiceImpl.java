@@ -31,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
 	private RoleRepository roleRepository;
 
 	@Autowired
-	private PasswordEncoder encoder;
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	JwtUtils jwtUtils;
@@ -73,7 +73,7 @@ public class AuthServiceImpl implements AuthService {
 			body.getLastName(),
 			body.getUsername(),
 			body.getEmail(),
-			encoder.encode(body.getPassword()),
+			passwordEncoder.encode(body.getPassword()),
 			Set.of(Objects.requireNonNull(role))
 		);
 

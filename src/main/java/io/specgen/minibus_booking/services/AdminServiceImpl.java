@@ -39,12 +39,17 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public UserDto getById(long userId) {
+		return userConverters.userEntityToUserDto(adminRepository.getById(userId));
+	}
+
+	@Override
 	public void deleteUser(long userId) {
 		adminRepository.deleteById(userId);
 	}
 
 	@Override
-	public UserDto createUser(RegisterDto body) {
+	public void createUser(RegisterDto body) {
 		Role role = roleRepository.findByName("ROLE_USER").orElse(null);
 
 		User user = new User(
@@ -56,8 +61,6 @@ public class AdminServiceImpl implements AdminService {
 			Set.of(Objects.requireNonNull(role))
 		);
 
-		User savedUser = adminRepository.save(user);
-
-		return userConverters.userEntityToUserDto(savedUser);
+		adminRepository.save(user);
 	}
 }

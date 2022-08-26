@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "user", uniqueConstraints = {
 	@UniqueConstraint(columnNames = {"username"}),
@@ -36,7 +38,7 @@ public class User {
 	@NotBlank
 	private String password;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {MERGE, PERSIST, REFRESH})
 	@JoinTable(name = "user_roles",
 		joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
