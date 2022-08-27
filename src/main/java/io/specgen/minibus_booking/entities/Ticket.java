@@ -25,6 +25,12 @@ public class Ticket {
 		this.tripSchedule = tripSchedule;
 	}
 
+	public Ticket(long id, User passenger, TripSchedule tripSchedule) {
+		this.id = id;
+		this.passenger = passenger;
+		this.tripSchedule = tripSchedule;
+	}
+
 	public long getId() {
 		return id;
 	}

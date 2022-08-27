@@ -61,6 +61,7 @@ models:
       trip_detail: TripDto
   TicketDto:
     object:
+      id: long
       passenger: UserDto
       trip_schedule: TripScheduleDto
 
@@ -87,6 +88,17 @@ http:
       query:
         user_id: long
         trip_schedule_id: long
+      response:
+        ok: empty
+  tickets:
+    get_by_id:
+      endpoint: GET /tickets/get_by_id
+      query:
+        user_id: long
+      response:
+        ok: TicketDto[]
+    delete_ticket:
+      endpoint: DELETE /tickets/delete_ticket/{ticket_id:long}
       response:
         ok: empty
   admin:

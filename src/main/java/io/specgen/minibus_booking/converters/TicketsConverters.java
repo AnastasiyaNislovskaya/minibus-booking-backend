@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TicketConverters {
+public class TicketsConverters {
 	@Autowired
 	private UserConverters userConverters;
 
@@ -15,6 +15,7 @@ public class TicketConverters {
 
 	public Ticket ticketDtoToTicket(TicketDto ticketDto) {
 		return new Ticket(
+			ticketDto.getId(),
 			userConverters.userModelToUser(ticketDto.getPassenger()),
 			tripScheduleConverters.tripScheduleDtoToTripSchedule(ticketDto.getTripSchedule())
 		);
@@ -22,6 +23,7 @@ public class TicketConverters {
 
 	public TicketDto ticketToTicketDto(Ticket ticket) {
 		return new TicketDto(
+			ticket.getId(),
 			userConverters.userEntityToUserDto(ticket.getPassenger()),
 			tripScheduleConverters.tripScheduleToTripScheduleDto(ticket.getTripSchedule())
 		);

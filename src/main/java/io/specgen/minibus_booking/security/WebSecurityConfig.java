@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/schedule/**").permitAll()
 			.antMatchers("/booking/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
 			.antMatchers("/profile/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+			.antMatchers("/tickets/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
 			.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 			.anyRequest().authenticated();
 
