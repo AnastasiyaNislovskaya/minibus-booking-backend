@@ -1,9 +1,7 @@
 package io.specgen.minibus_booking.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 import static javax.persistence.CascadeType.*;
@@ -38,7 +36,7 @@ public class User {
 	@NotBlank
 	private String password;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {MERGE, PERSIST, REFRESH})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = MERGE)
 	@JoinTable(name = "user_roles",
 		joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))

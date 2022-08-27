@@ -18,14 +18,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Autowired
 	private TripScheduleConverters tripScheduleConverters;
 
-//	@Override
-//	public List<LocalityDto> getLocalities() {
-//		return localityRepository.findAll()
-//			.stream()
-//			.map(localityConverters::localityToLocalityDto)
-//			.collect(Collectors.toList());
-//	}
-
 	@Override
 	public List<TripScheduleDto> getAllTrips() {
 		return tripScheduleRepository.findAll()
@@ -33,16 +25,4 @@ public class ScheduleServiceImpl implements ScheduleService {
 			.map(tripScheduleConverters::tripScheduleToTripScheduleDto)
 			.collect(Collectors.toList());
 	}
-
-//	@Override
-//	public List<TripScheduleDto> getTrips(String departure, String arrival, LocalDate tripDate) {
-//		Trip trip = tripRepository.findByArrivalAndAndDepartureAndAndTripDate(departure, arrival, tripDate);
-//
-//		List<TripSchedule> tripSchedules = tripScheduleRepository.findByTripDetail(trip);
-//
-//		return tripSchedules
-//			.stream()
-//			.map(tripScheduleConverters::tripScheduleToTripScheduleDto)
-//			.collect(Collectors.toList());
-//	}
 }

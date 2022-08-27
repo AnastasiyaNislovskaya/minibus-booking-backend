@@ -1,11 +1,7 @@
 package io.specgen.minibus_booking.services;
 
-import io.specgen.minibus_booking.entities.Ticket;
-import io.specgen.minibus_booking.entities.TripSchedule;
-import io.specgen.minibus_booking.entities.User;
-import io.specgen.minibus_booking.repositories.BookingRepository;
-import io.specgen.minibus_booking.repositories.TripScheduleRepository;
-import io.specgen.minibus_booking.repositories.AdminRepository;
+import io.specgen.minibus_booking.entities.*;
+import io.specgen.minibus_booking.repositories.*;
 import io.specgen.minibus_booking.services.booking.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +20,15 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public void bookTicket(long userId, long tripScheduleId) {
 		User passenger = userRepository.findById(userId).orElse(null);
-		TripSchedule trip = tripScheduleRepository.findById(tripScheduleId).orElse(null);
+		TripSchedule tripSchedule = tripScheduleRepository.findById(tripScheduleId).orElse(null);
+		if (tripSchedule == null) {
+			return;
+		}
 
-		Ticket ticket = new Ticket(passenger, trip);
-
+		Ticket ticket = new Ticket(passenger, tripSchedule);
 		bookingRepository.save(ticket);
+
+		tripSchedule.reduceAvailableSeatsAmount();
+		tripScheduleRepository.save(tripSchedule);
 	}
 }

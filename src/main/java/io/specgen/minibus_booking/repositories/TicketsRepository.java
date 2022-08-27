@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface TicketsRepository extends JpaRepository<Ticket, Long> {
-	List<Ticket> findByPassenger(User passenger);
+	List<Ticket> findAllByPassenger(User passenger);
+
+	Ticket findByPassenger(User passenger);
 }

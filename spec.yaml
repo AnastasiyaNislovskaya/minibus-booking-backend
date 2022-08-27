@@ -91,12 +91,16 @@ http:
       response:
         ok: empty
   tickets:
-    get_by_id:
-      endpoint: GET /tickets/get_by_id
+    get_all_tickets:
+      endpoint: GET /tickets/get_all_tickets
       query:
         user_id: long
       response:
         ok: TicketDto[]
+    get_by_id:
+      endpoint: GET /tickets/get_by_id/{ticket_id:long}
+      response:
+        ok: TicketDto
     delete_ticket:
       endpoint: DELETE /tickets/delete_ticket/{ticket_id:long}
       response:

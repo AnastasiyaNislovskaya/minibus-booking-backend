@@ -1,9 +1,8 @@
 package io.specgen.minibus_booking.services;
 
 import io.specgen.minibus_booking.converters.TicketsConverters;
-import io.specgen.minibus_booking.entities.User;
-import io.specgen.minibus_booking.repositories.AdminRepository;
-import io.specgen.minibus_booking.repositories.TicketsRepository;
+import io.specgen.minibus_booking.entities.*;
+import io.specgen.minibus_booking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import io.specgen.minibus_booking.models.*;
@@ -18,23 +17,42 @@ public class TicketsServiceImpl implements TicketsService {
 	private AdminRepository adminRepository;
 
 	@Autowired
+	private TripScheduleRepository tripScheduleRepository;
+
+	@Autowired
 	private TicketsRepository ticketsRepository;
 
 	@Autowired
 	private TicketsConverters ticketsConverters;
 
 	@Override
-	public List<TicketDto> getById(long userId) {
+	public List<TicketDto> getAllTickets(long userId) {
 		User user = adminRepository.findById(userId).orElse(null);
 
-		return ticketsRepository.findByPassenger(user)
+		return ticketsRepository.findAllByPassenger(user)
 			.stream()
 			.map(ticketsConverters::ticketToTicketDto)
 			.collect(Collectors.toList());
 	}
 
 	@Override
+	public TicketDto getById(long userId) {
+		User user = adminRepository.findById(userId).orElse(null);
+
+		return ticketsConverters.ticketToTicketDto(ticketsRepository.findByPassenger(user));
+	}
+
+	@Override
 	public void deleteTicket(long ticketId) {
+		Ticket ticket = ticketsRepository.findById(ticketId).orElse(null);
+		if (ticket == null) {
+			return;
+		}
+		TripSchedule tripSchedule = ticket.getTripSchedule();
+
 		ticketsRepository.deleteById(ticketId);
+
+		tripSchedule.increaseAvailableSeatsAmount();
+		tripScheduleRepository.save(tripSchedule);
 	}
 }

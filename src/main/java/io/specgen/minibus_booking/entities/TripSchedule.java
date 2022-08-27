@@ -76,8 +76,16 @@ public class TripSchedule {
 		return availableSeats;
 	}
 
-	public void setAvailableSeats(int availableSeats) {
+	public void reduceAvailableSeatsAmount(int availableSeats) {
 		this.availableSeats = availableSeats;
+	}
+
+	public void reduceAvailableSeatsAmount() {
+		this.availableSeats--;
+	}
+
+	public void increaseAvailableSeatsAmount() {
+		this.availableSeats++;
 	}
 
 	public Trip getTripDetail() {
