@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface TripScheduleRepository extends JpaRepository<TripSchedule, Long> {
 	List<TripSchedule> findByTripDetail(Trip trip);
+
 	List<TripSchedule> findAll();
 }

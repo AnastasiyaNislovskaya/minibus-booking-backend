@@ -82,6 +82,10 @@ http:
       endpoint: GET /schedule/get_all_trips
       response:
         ok: TripScheduleDto[]
+    get_trips:
+      endpoint: GET /schedule/get_trips/{departure:string}/{arrival:string}/{trip_date:date}
+      response:
+        ok: TripScheduleDto[]
   booking:
     book_ticket:
       endpoint: POST /booking/book_ticket
@@ -92,9 +96,7 @@ http:
         ok: empty
   tickets:
     get_all_tickets:
-      endpoint: GET /tickets/get_all_tickets
-      query:
-        user_id: long
+      endpoint: GET /tickets/get_all_tickets/{user_id:long}
       response:
         ok: TicketDto[]
     get_by_id:
