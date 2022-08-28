@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "trip")
+@Table(name = "trips")
 public class Trip {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
