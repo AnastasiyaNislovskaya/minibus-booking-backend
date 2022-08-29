@@ -54,6 +54,7 @@ public class AdminServiceImpl implements AdminService {
 		User user = new User(
 			body.getFirstName(),
 			body.getLastName(),
+			body.getPhone(),
 			body.getUsername(),
 			body.getEmail(),
 			passwordEncoder.encode(body.getPassword()),

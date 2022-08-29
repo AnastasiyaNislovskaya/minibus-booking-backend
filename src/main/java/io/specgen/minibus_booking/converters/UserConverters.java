@@ -17,6 +17,7 @@ public class UserConverters {
 		return new User(
 			userDto.getFirstName(),
 			userDto.getLastName(),
+			userDto.getPhone(),
 			userDto.getUsername(),
 			userDto.getEmail(),
 			userDto.getPassword(),
@@ -33,6 +34,7 @@ public class UserConverters {
 			user.getId(),
 			user.getFirstName(),
 			user.getLastName(),
+			user.getPhone(),
 			user.getUsername(),
 			user.getEmail(),
 			user.getPassword(),

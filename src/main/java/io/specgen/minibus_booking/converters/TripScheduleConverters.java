@@ -12,13 +12,17 @@ public class TripScheduleConverters {
 	@Autowired
 	private TripConverters tripConverters;
 
+	@Autowired
+	private CarConverters carConverters;
+
 	public TripSchedule tripScheduleDtoToTripSchedule(TripScheduleDto tripScheduleDto) {
 		return new TripSchedule(
 			LocalTime.parse(tripScheduleDto.getDepartureTime()),
 			LocalTime.parse(tripScheduleDto.getDepartureTime()),
 			tripScheduleDto.getFare(),
 			tripScheduleDto.getAvailableSets(),
-			tripConverters.tripDtoToTrip(tripScheduleDto.getTripDetail())
+			tripConverters.tripDtoToTrip(tripScheduleDto.getTripDetail()),
+			carConverters.carDtoToCar(tripScheduleDto.getCar())
 		);
 	}
 
@@ -29,7 +33,8 @@ public class TripScheduleConverters {
 			tripSchedule.getArrivalTime().toString(),
 			tripSchedule.getFare(),
 			tripSchedule.getAvailableSeats(),
-			tripConverters.tripToTripDto(tripSchedule.getTripDetail())
+			tripConverters.tripToTripDto(tripSchedule.getTripDetail()),
+			carConverters.carToCarDto(tripSchedule.getCarNumber())
 		);
 	}
 }

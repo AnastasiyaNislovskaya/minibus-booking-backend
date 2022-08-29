@@ -3,7 +3,7 @@ package io.specgen.minibus_booking.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ticket")
+@Table(name = "tickets")
 public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

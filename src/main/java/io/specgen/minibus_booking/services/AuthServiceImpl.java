@@ -21,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private AdminRepository userRepository;
+	private AdminRepository adminRepository;
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -54,6 +54,7 @@ public class AuthServiceImpl implements AuthService {
 			userDetails.getId(),
 			userDetails.getFirstName(),
 			userDetails.getLastName(),
+			userDetails.getPhone(),
 			userDetails.getUsername(),
 			userDetails.getEmail(),
 			roles
@@ -70,12 +71,13 @@ public class AuthServiceImpl implements AuthService {
 		User user = new User(
 			body.getFirstName(),
 			body.getLastName(),
+			body.getPhone(),
 			body.getUsername(),
 			body.getEmail(),
 			passwordEncoder.encode(body.getPassword()),
 			Set.of(role)
 		);
 
-		userRepository.save(user);
+		adminRepository.save(user);
 	}
 }

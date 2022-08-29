@@ -22,22 +22,20 @@ public class TripSchedule {
 	@JoinColumn(name = "trip_id")
 	private Trip tripDetail;
 
+	@OneToOne
+	@JoinColumn(name = "car_id")
+	private Car carNumber;
+
 	public TripSchedule() {
 	}
 
-	public TripSchedule(LocalTime departureTime, LocalTime arrivalTime, int fare, int availableSeats, Trip tripDetail) {
+	public TripSchedule(LocalTime departureTime, LocalTime arrivalTime, int fare, int availableSeats, Trip tripDetail, Car carNumber) {
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
 		this.fare = fare;
 		this.availableSeats = availableSeats;
 		this.tripDetail = tripDetail;
-	}
-
-	public TripSchedule(LocalTime departureTime, LocalTime arrivalTime, int fare, int availableSeats) {
-		this.departureTime = departureTime;
-		this.arrivalTime = arrivalTime;
-		this.fare = fare;
-		this.availableSeats = availableSeats;
+		this.carNumber = carNumber;
 	}
 
 	public long getId() {
@@ -94,5 +92,17 @@ public class TripSchedule {
 
 	public void setTripDetail(Trip tripDetail) {
 		this.tripDetail = tripDetail;
+	}
+
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
+	}
+
+	public Car getCarNumber() {
+		return carNumber;
+	}
+
+	public void setCarNumber(Car carNumber) {
+		this.carNumber = carNumber;
 	}
 }

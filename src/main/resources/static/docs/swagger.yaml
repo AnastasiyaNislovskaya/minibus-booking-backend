@@ -451,6 +451,7 @@ components:
       required:
         - first_name
         - last_name
+        - phone
         - username
         - email
         - password
@@ -458,6 +459,8 @@ components:
         first_name:
           type: string
         last_name:
+          type: string
+        phone:
           type: string
         username:
           type: string
@@ -473,6 +476,7 @@ components:
         - id
         - first_name
         - last_name
+        - phone
         - username
         - email
         - roles
@@ -488,6 +492,8 @@ components:
           type: string
         last_name:
           type: string
+        phone:
+          type: string
         username:
           type: string
         email:
@@ -502,6 +508,7 @@ components:
         - id
         - first_name
         - last_name
+        - phone
         - username
         - email
         - password
@@ -514,6 +521,8 @@ components:
           type: string
         last_name:
           type: string
+        phone:
+          type: string
         username:
           type: string
         email:
@@ -524,6 +533,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RoleDto'
+    CarDto:
+      type: object
+      required:
+        - id
+        - number
+      properties:
+        id:
+          type: integer
+          format: int64
+        number:
+          type: string
     RoleDto:
       type: object
       required:
@@ -535,11 +555,6 @@ components:
           format: int64
         name:
           type: string
-    RoleName:
-      type: string
-      enum:
-        - role_user
-        - role_admin
     LocalityDto:
       type: object
       required:
@@ -578,6 +593,7 @@ components:
         - fare
         - available_sets
         - trip_detail
+        - car
       properties:
         id:
           type: integer
@@ -594,6 +610,8 @@ components:
           format: int32
         trip_detail:
           $ref: '#/components/schemas/TripDto'
+        car:
+          $ref: '#/components/schemas/CarDto'
     TicketDto:
       type: object
       required:
