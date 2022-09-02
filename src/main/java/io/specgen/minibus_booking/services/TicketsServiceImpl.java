@@ -36,13 +36,6 @@ public class TicketsServiceImpl implements TicketsService {
 	}
 
 	@Override
-	public TicketDto getById(long userId) {
-		User user = adminRepository.findById(userId).orElse(null);
-
-		return ticketsConverters.ticketToTicketDto(ticketsRepository.findByPassenger(user));
-	}
-
-	@Override
 	public void deleteTicket(long ticketId) {
 		Ticket ticket = ticketsRepository.findById(ticketId).orElse(null);
 		if (ticket == null) {

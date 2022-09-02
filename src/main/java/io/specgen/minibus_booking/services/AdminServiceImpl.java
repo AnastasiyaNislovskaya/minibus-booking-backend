@@ -35,11 +35,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public UserDto getById(long userId) {
-		return userConverters.userEntityToUserDto(adminRepository.getById(userId));
-	}
-
-	@Override
 	public void deleteUser(long userId) {
 		adminRepository.deleteById(userId);
 	}

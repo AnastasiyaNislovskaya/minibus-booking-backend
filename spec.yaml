@@ -103,10 +103,6 @@ http:
       endpoint: GET /tickets/get_all_tickets/{user_id:long}
       response:
         ok: TicketDto[]
-    get_by_id:
-      endpoint: GET /tickets/get_by_id/{ticket_id:long}
-      response:
-        ok: TicketDto
     delete_ticket:
       endpoint: DELETE /tickets/delete_ticket/{ticket_id:long}
       response:
@@ -116,10 +112,6 @@ http:
       endpoint: GET /admin/get_all_users
       response:
         ok: UserDto[]
-    get_by_id:
-      endpoint: GET /admin/get_by_id/{user_id:long}
-      response:
-        ok: UserDto
     delete_user:
       endpoint: DELETE /admin/delete_user/{user_id:long}
       response:
