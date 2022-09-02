@@ -11,18 +11,35 @@ models:
     object:
       first_name: string
       last_name: string
+      phone: string
       username: string
       email: string
       password: string
+  AuthDto:
+    object:
+      token: string
+      type: string
+      id: long
+      first_name: string
+      last_name: string
+      phone: string
+      username: string
+      email: string
+      roles: string[]
   UserDto:
     object:
       id: long
       first_name: string
       last_name: string
+      phone: string
       username: string
       email: string
       password: string
       roles: RoleDto[]
+  CarDto:
+    object:
+      id: long
+      number: string
   RoleDto:
     object:
       id: long
@@ -45,8 +62,10 @@ models:
       fare: int
       available_sets: int
       trip_detail: TripDto
+      car: CarDto
   TicketDto:
     object:
+      id: long
       passenger: UserDto
       trip_schedule: TripScheduleDto
 
@@ -56,7 +75,7 @@ http:
       endpoint: POST /auth/signin
       body: LoginDto
       response:
-        ok: UserDto
+        ok: AuthDto
     register_user:
       endpoint: POST /auth/signup
       body: RegisterDto
@@ -67,6 +86,10 @@ http:
       endpoint: GET /schedule/get_all_trips
       response:
         ok: TripScheduleDto[]
+    get_trips:
+      endpoint: GET /schedule/get_trips/{departure:string}/{arrival:string}/{trip_date:date}
+      response:
+        ok: TripScheduleDto[]
   booking:
     book_ticket:
       endpoint: POST /booking/book_ticket
@@ -75,11 +98,28 @@ http:
         trip_schedule_id: long
       response:
         ok: empty
+  tickets:
+    get_all_tickets:
+      endpoint: GET /tickets/get_all_tickets/{user_id:long}
+      response:
+        ok: TicketDto[]
+    get_by_id:
+      endpoint: GET /tickets/get_by_id/{ticket_id:long}
+      response:
+        ok: TicketDto
+    delete_ticket:
+      endpoint: DELETE /tickets/delete_ticket/{ticket_id:long}
+      response:
+        ok: empty
   admin:
     get_all_users:
       endpoint: GET /admin/get_all_users
       response:
         ok: UserDto[]
+    get_by_id:
+      endpoint: GET /admin/get_by_id/{user_id:long}
+      response:
+        ok: UserDto
     delete_user:
       endpoint: DELETE /admin/delete_user/{user_id:long}
       response:
@@ -88,4 +128,4 @@ http:
       endpoint: POST /admin/create_user
       body: RegisterDto
       response:
-        ok: UserDto
+        created: empty
