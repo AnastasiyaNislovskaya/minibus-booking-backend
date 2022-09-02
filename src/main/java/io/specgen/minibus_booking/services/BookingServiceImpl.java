@@ -20,6 +20,9 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public void bookTicket(long userId, long tripScheduleId) {
 		User passenger = userRepository.findById(userId).orElse(null);
+		if (passenger == null) {
+			return;
+		}
 		TripSchedule tripSchedule = tripScheduleRepository.findById(tripScheduleId).orElse(null);
 		if (tripSchedule == null) {
 			return;
