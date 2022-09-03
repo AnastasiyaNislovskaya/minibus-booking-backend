@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "tripSchedule")
+@Table(name = "trip_schedule")
 public class TripSchedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,18 +24,18 @@ public class TripSchedule {
 
 	@OneToOne
 	@JoinColumn(name = "car_id")
-	private Car carNumber;
+	private Car carDetail;
 
 	public TripSchedule() {
 	}
 
-	public TripSchedule(LocalTime departureTime, LocalTime arrivalTime, int fare, int availableSeats, Trip tripDetail, Car carNumber) {
+	public TripSchedule(LocalTime departureTime, LocalTime arrivalTime, int fare, int availableSeats, Trip tripDetail, Car carDetail) {
 		this.departureTime = departureTime;
 		this.arrivalTime = arrivalTime;
 		this.fare = fare;
 		this.availableSeats = availableSeats;
 		this.tripDetail = tripDetail;
-		this.carNumber = carNumber;
+		this.carDetail = carDetail;
 	}
 
 	public long getId() {
@@ -74,16 +74,16 @@ public class TripSchedule {
 		return availableSeats;
 	}
 
-	public void reduceAvailableSeatsAmount(int availableSeats) {
-		this.availableSeats = availableSeats;
-	}
-
 	public void reduceAvailableSeatsAmount() {
 		this.availableSeats--;
 	}
 
 	public void increaseAvailableSeatsAmount() {
 		this.availableSeats++;
+	}
+
+	public void setAvailableSeats(int availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 	public Trip getTripDetail() {
@@ -94,15 +94,11 @@ public class TripSchedule {
 		this.tripDetail = tripDetail;
 	}
 
-	public void setAvailableSeats(int availableSeats) {
-		this.availableSeats = availableSeats;
+	public Car getCarDetail() {
+		return carDetail;
 	}
 
-	public Car getCarNumber() {
-		return carNumber;
-	}
-
-	public void setCarNumber(Car carNumber) {
-		this.carNumber = carNumber;
+	public void setCarDetail(Car carDetail) {
+		this.carDetail = carDetail;
 	}
 }

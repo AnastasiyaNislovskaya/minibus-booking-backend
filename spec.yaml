@@ -44,10 +44,6 @@ models:
     object:
       id: long
       name: string
-  LocalityDto:
-    object:
-      id: long
-      name: string
   TripDto:
     object:
       id: long
@@ -60,9 +56,9 @@ models:
       departure_time: string
       arrival_time: string
       fare: int
-      available_sets: int
+      available_seats: int
       trip_detail: TripDto
-      car: CarDto
+      car_detail: CarDto
   TicketDto:
     object:
       id: long
