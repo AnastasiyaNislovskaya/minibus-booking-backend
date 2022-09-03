@@ -20,9 +20,9 @@ public class TripScheduleConverters {
 			LocalTime.parse(tripScheduleDto.getDepartureTime()),
 			LocalTime.parse(tripScheduleDto.getDepartureTime()),
 			tripScheduleDto.getFare(),
-			tripScheduleDto.getAvailableSets(),
+			tripScheduleDto.getAvailableSeats(),
 			tripConverters.tripDtoToTrip(tripScheduleDto.getTripDetail()),
-			carConverters.carDtoToCar(tripScheduleDto.getCar())
+			carConverters.carDtoToCar(tripScheduleDto.getCarDetail())
 		);
 	}
 
@@ -34,7 +34,7 @@ public class TripScheduleConverters {
 			tripSchedule.getFare(),
 			tripSchedule.getAvailableSeats(),
 			tripConverters.tripToTripDto(tripSchedule.getTripDetail()),
-			carConverters.carToCarDto(tripSchedule.getCarNumber())
+			carConverters.carToCarDto(tripSchedule.getCarDetail())
 		);
 	}
 }

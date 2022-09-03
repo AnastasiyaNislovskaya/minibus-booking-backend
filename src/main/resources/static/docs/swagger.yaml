@@ -230,43 +230,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /tickets/get_by_id/{ticket_id}:
-    get:
-      operationId: ticketsGetById
-      tags:
-        - tickets
-      parameters:
-        - in: path
-          name: ticket_id
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TicketDto'
-        "400":
-          description: Service will return this if parameters are not provided or couldn't be parsed correctly
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestError'
-        "404":
-          description: Service will return this if the endpoint is not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundError'
-        "500":
-          description: Service will return this if unexpected internal error happens
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
   /tickets/delete_ticket/{ticket_id}:
     delete:
       operationId: ticketsDeleteTicket
@@ -314,43 +277,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserDto'
-        "400":
-          description: Service will return this if parameters are not provided or couldn't be parsed correctly
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestError'
-        "404":
-          description: Service will return this if the endpoint is not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundError'
-        "500":
-          description: Service will return this if unexpected internal error happens
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
-  /admin/get_by_id/{user_id}:
-    get:
-      operationId: adminGetById
-      tags:
-        - admin
-      parameters:
-        - in: path
-          name: user_id
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserDto'
         "400":
           description: Service will return this if parameters are not provided or couldn't be parsed correctly
           content:
@@ -555,17 +481,6 @@ components:
           format: int64
         name:
           type: string
-    LocalityDto:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
     TripDto:
       type: object
       required:
@@ -591,9 +506,9 @@ components:
         - departure_time
         - arrival_time
         - fare
-        - available_sets
+        - available_seats
         - trip_detail
-        - car
+        - car_detail
       properties:
         id:
           type: integer
@@ -605,12 +520,12 @@ components:
         fare:
           type: integer
           format: int32
-        available_sets:
+        available_seats:
           type: integer
           format: int32
         trip_detail:
           $ref: '#/components/schemas/TripDto'
-        car:
+        car_detail:
           $ref: '#/components/schemas/CarDto'
     TicketDto:
       type: object
