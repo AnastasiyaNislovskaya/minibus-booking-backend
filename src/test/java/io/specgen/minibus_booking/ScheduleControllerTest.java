@@ -12,16 +12,14 @@ public class ScheduleControllerTest extends AbstractControllerTest {
 	@Test
 	void getAllTrips() throws Exception {
 		perform(get("/schedule/get_all_trips"))
-			.andExpect(status().isOk())
 			.andDo(print())
-			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+			.andExpect(status().isOk());
 	}
 
 	@Test
-	void getTrips() throws Exception {
-		perform(get("/schedule/get_trips/Гомель/Минск/2022-09-03"))
-			.andExpect(status().isOk())
+	void getTripsByParams() throws Exception {
+		perform(get("/schedule/get_trips_by_params/Гомель/Минск/2022-09-03"))
 			.andDo(print())
-			.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+			.andExpect(status().isOk());
 	}
 }

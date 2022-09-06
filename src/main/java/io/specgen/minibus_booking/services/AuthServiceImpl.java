@@ -21,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private AdminRepository adminRepository;
+	private UserRepository adminRepository;
 
 	@Autowired
 	private RoleRepository roleRepository;

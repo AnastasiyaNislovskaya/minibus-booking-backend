@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service("TicketsService")
 public class TicketsServiceImpl implements TicketsService {
 	@Autowired
-	private AdminRepository adminRepository;
+	private UserRepository adminRepository;
 
 	@Autowired
 	private TripScheduleRepository tripScheduleRepository;

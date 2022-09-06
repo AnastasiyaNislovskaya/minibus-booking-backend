@@ -12,7 +12,7 @@ public class AuthControllerTest extends AbstractControllerTest {
 
 	@Test
 	void authenticate() throws Exception {
-		String authUser = "{'username':'elena','password':'123456'}";
+		var authUser = "{'username':'elena','password':'123456'}";
 
 		perform(post("/auth/signin")
 			.contentType(MediaType.APPLICATION_JSON)
@@ -23,14 +23,14 @@ public class AuthControllerTest extends AbstractControllerTest {
 
 	@Test
 	void register() throws Exception {
-		final String newUser = "{'first_name':'Пётр','last_name':'Петров','phone':'+375291234567','username':'petrov','email':'petrov@mail.ru','password':'123456'}";
+		var newUser =
+			"{'first_name':'Пётр','last_name':'Петров','phone':'+375291234567'" +
+				",'username':'petrov','email':'petrov@mail.ru','password':'123456'}";
 
 		perform(post("/auth/signup")
-			.accept(MediaType.APPLICATION_JSON)
-			.content(fixQuotes(newUser))
-			.contentType(MediaType.APPLICATION_JSON))
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(fixQuotes(newUser)))
 			.andDo(print())
-			.andExpect(status().isCreated())
-			.andReturn();
+			.andExpect(status().isCreated());
 	}
 }

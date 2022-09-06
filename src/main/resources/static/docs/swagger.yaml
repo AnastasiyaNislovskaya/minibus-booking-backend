@@ -103,9 +103,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /schedule/get_trips/{departure}/{arrival}/{trip_date}:
+  /schedule/get_trips_by_params/{departure}/{arrival}/{trip_date}:
     get:
-      operationId: scheduleGetTrips
+      operationId: scheduleGetTripsByParams
       tags:
         - schedule
       parameters:

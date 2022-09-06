@@ -82,8 +82,8 @@ http:
       endpoint: GET /schedule/get_all_trips
       response:
         ok: TripScheduleDto[]
-    get_trips:
-      endpoint: GET /schedule/get_trips/{departure:string}/{arrival:string}/{trip_date:date}
+    get_trips_by_params:
+      endpoint: GET /schedule/get_trips_by_params/{departure:string}/{arrival:string}/{trip_date:date}
       response:
         ok: TripScheduleDto[]
   booking:

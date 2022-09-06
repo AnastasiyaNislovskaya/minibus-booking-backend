@@ -31,8 +31,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			.collect(Collectors.toList());
 	}
 
-	@Override
-	public List<TripScheduleDto> getTrips(String departure, String arrival, LocalDate tripDate) {
+	public List<TripScheduleDto> getTripsByParams(String departure, String arrival, LocalDate tripDate) {
 		Trip trip = tripRepository.findByDepartureAndArrivalAndTripDate(departure, arrival, tripDate);
 
 		return tripScheduleRepository.findByTripDetail(trip)

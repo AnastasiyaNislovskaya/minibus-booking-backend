@@ -15,7 +15,7 @@ public class BookingControllerTest extends AbstractControllerTest {
 		perform(post("/booking/book_ticket")
 			.param("user_id", String.valueOf(2))
 			.param("trip_schedule_id", String.valueOf(1)))
-			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print())
+			.andExpect(status().isOk());
 	}
 }

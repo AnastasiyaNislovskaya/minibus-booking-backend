@@ -1,7 +1,7 @@
 package io.specgen.minibus_booking.security;
 
 import io.specgen.minibus_booking.entities.User;
-import io.specgen.minibus_booking.repositories.AdminRepository;
+import io.specgen.minibus_booking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
-	AdminRepository userRepository;
+	UserRepository userRepository;
 
 	@Override
 	@Transactional

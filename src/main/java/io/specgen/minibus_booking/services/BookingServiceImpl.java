@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("BookingService")
 public class BookingServiceImpl implements BookingService {
 	@Autowired
-	private AdminRepository userRepository;
+	private UserRepository userRepository;
 
 	@Autowired
 	private TripScheduleRepository tripScheduleRepository;

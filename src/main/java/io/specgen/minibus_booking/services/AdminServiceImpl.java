@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service("AdminService")
 public class AdminServiceImpl implements AdminService {
 	@Autowired
-	private AdminRepository adminRepository;
+	private UserRepository userRepository;
 
 	@Autowired
 	private UserConverters userConverters;
@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<UserDto> getAllUsers() {
-		return adminRepository.findAll()
+		return userRepository.findAll()
 			.stream()
 			.map(userConverters::userEntityToUserDto)
 			.collect(Collectors.toList());
@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void deleteUser(long userId) {
-		adminRepository.deleteById(userId);
+		userRepository.deleteById(userId);
 	}
 
 	@Override
@@ -56,6 +56,6 @@ public class AdminServiceImpl implements AdminService {
 			Set.of(role)
 		);
 
-		adminRepository.save(user);
+		userRepository.save(user);
 	}
 }
